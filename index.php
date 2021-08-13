@@ -1,5 +1,8 @@
 <?php 
 include 'header.php'; 
+include 'lib/config.php';
+include 'lib/Database.php';
+$db = new Database();
 ?>
       
         <div class="panel-body">
