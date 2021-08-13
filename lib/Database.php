@@ -36,6 +36,14 @@ class Database{
             return false;
         }
     }
-  
+     // Delete Data
+    public function delete($data){
+        $result = $this->link->query($data)or die($this->link->error.__LINE__);
+        if($result){
+            return $result;
+        }else{
+            return false;
+        }
+    }
 }
 ?>

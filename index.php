@@ -42,7 +42,7 @@ $db = new Database();
                     </div>
                     <input class="btn btn-primary" type="submit" name="submit" value="Upload">
                 </form>
-                <br>
+                 <br>
                   <br>
                       <div class="row">
                        <div height="100px" class="col-md-4">
@@ -55,6 +55,29 @@ $db = new Database();
                         <th>Image</th>
                         <th>Action</th>
                     </tr>
+                    <?php
+                    if(isset($_GET['del'])){
+                        $id = $_GET['del'];
+                        
+                        
+                         $getquery = "SELECT * FROM tbl_image WHERE id='$id'";
+                         $getimg = $db->select($getquery);
+                        if($getimg){
+                           while($imgdata = $getimg->fetch_assoc()){
+                            $delimg = $imgdata['image'];
+                             unlink($delimg);  
+                        }
+                        
+                    }
+                    $query = "DELETE FROM tbl_image WHERE id ='$id'";
+                    $imgDelete = $db->delete($query);
+                    if($imgDelete){
+                         echo "<div class='alert alert-success'>Image Deleted Successfully</div>";
+                     }else{
+                         echo "<div class='alert alert-danger'>Image not Deleted !</div>";
+                     }
+                    }
+                    ?>
                 <?php
                    $query = "SELECT * FROM tbl_image";
                    $getImage = $db->select($query);
@@ -66,7 +89,9 @@ $db = new Database();
                     <tr>
                         <td><?php echo $i; ?></td>
                         <td><img height="40px" width="50px;"  class="img-responsive" src="<?php echo $result['image']; ?>" ></td>
-                        
+                        <td>
+                            <a class="btn btn-primary" href="?del=<?php echo $result['id']; ?>">Delete</a>
+                        </td>
                     </tr>
                     <?php }} ?>
                 </table>
