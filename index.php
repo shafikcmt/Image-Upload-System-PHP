@@ -17,6 +17,13 @@ $db = new Database();
                      $file_ext = strtolower(end($div));
                      $unique_image = substr(md5(time()),0,10).'.'.$file_ext;
                      $uploaded_image = "uploads/".$unique_image;
+                     if(empty($file_name)){
+                        echo "<div class='alert alert-success'>Please Select any Image</div>";
+                    }elseif($file_size>1048567){
+                        echo "<div class='alert alert-success'>Image size should be less than 1kb.</div>";
+                    }elseif(in_array($file_ext,$permited) === false){
+                         echo "<div class='alert alert-success'>You can upload only:-".implode(', ',$permited)."</div>";
+                    }else{
                      move_uploaded_file($file_temp,$uploaded_image);
                      $query = "INSERT INTO tbl_image(image )VALUES('$uploaded_image')";
                      $insert_rows = $db->insert($query);
@@ -25,6 +32,7 @@ $db = new Database();
                      }else{
                          echo "<div class='alert alert-danger'>Image not Inserted !</div>";
                      }
+                    }
                     } 
                      ?>
                 <form action="" method="post" enctype="multipart/form-data">
