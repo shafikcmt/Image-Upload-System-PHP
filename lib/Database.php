@@ -18,6 +18,15 @@ class Database{
             //return false;  
         }
     }
-   
+    // Insert Data
+    public function insert($data){
+        $data_row = $this->link->query($data)or die($this->link->error.__LINE__);
+        if($data_row){
+            return $data_row;
+        }else{
+            return false;
+        }
+    }
+ 
 }
 ?>
