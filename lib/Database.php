@@ -36,6 +36,6 @@ class Database{
             return false;
         }
     }
-   
+  
 }
 ?>
