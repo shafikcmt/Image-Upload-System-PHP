@@ -13,9 +13,12 @@ $db = new Database();
                      $file_name = $_FILES['image']['name'];
                      $file_size = $_FILES['image']['size'];
                      $file_temp = $_FILES['image']['tmp_name'];
-                     $folder = "uploads/";
-                     move_uploaded_file($file_temp,$folder.$file_name);
-                     $query = "INSERT INTO tbl_image(image )VALUES('$file_name')";
+                     $div = explode('.',$file_name);
+                     $file_ext = strtolower(end($div));
+                     $unique_image = substr(md5(time()),0,10).'.'.$file_ext;
+                     $uploaded_image = "uploads/".$unique_image;
+                     move_uploaded_file($file_temp,$uploaded_image);
+                     $query = "INSERT INTO tbl_image(image )VALUES('$uploaded_image')";
                      $insert_rows = $db->insert($query);
                      if($insert_rows){
                          echo "<div class='alert alert-success'>Image Inserted Successfully</div>";
