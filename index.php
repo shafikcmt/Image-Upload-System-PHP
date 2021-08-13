@@ -42,8 +42,34 @@ $db = new Database();
                     </div>
                     <input class="btn btn-primary" type="submit" name="submit" value="Upload">
                 </form>
-                
-                
+                <br>
+                  <br>
+                      <div class="row">
+                       <div height="100px" class="col-md-4">
+                         
+                       </div>
+                   </div>
+                <table class="table">
+                    <tr>
+                        <th>Serial</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                <?php
+                   $query = "SELECT * FROM tbl_image";
+                   $getImage = $db->select($query);
+                   if($getImage){
+                       $i=0;
+                       while($result = $getImage->fetch_assoc()){
+                           $i++;
+                   ?>
+                    <tr>
+                        <td><?php echo $i; ?></td>
+                        <td><img height="40px" width="50px;"  class="img-responsive" src="<?php echo $result['image']; ?>" ></td>
+                        
+                    </tr>
+                    <?php }} ?>
+                </table>
             </div>
               
         </div>
